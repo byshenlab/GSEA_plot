@@ -93,3 +93,22 @@ for (i in 1:3) {
 }
 
 
+# sc
+
+a <- readRDS('../Case18 PanIN-sc/Result/02-PDAC_subtype/4-Final_celltype/sce.all.int.rds')
+FeatureStatPlot(
+  srt = a, bg.by = "celltype", group.by = "celltype",
+  stat.by = 'GPR110', add_box = TRUE
+)
+ggsave(filename="FeatureStatPlot.pdf",width = 18,height = 10)
+
+P1 <- FeatureDimPlot(
+  srt = a, features = c("GPR110"),
+  reduction = "TSNE", theme_use = "theme_blank"
+)
+
+P2 <- CellDimPlot(srt = a, group.by = c('celltype'),reduction = "tsne",theme_use = "theme_blank")
+
+P <- P2+P1
+ggsave(filename="final_umap.pdf",width = 12,height = 6)
+
